@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo Anabólico & Queima Extrema | Oferta Exclusiva</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            green: '#10b981',
+                            lime: '#84cc16',
+                            orange: '#f97316',
+                            red: '#ef4444',
+                            dark: '#090d16',
+                            card: '#111827'
+                        }
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'bounce-short': 'bounceShort 1s infinite'
+                    },
+                    keyframes: {
+                        glow: {
+                            '0%': { 'box-shadow': '0 0 15px rgba(16, 185, 129, 0.4)' },
+                            '100%': { 'box-shadow': '0 0 35px rgba(16, 185, 129, 0.8), 0 0 15px rgba(132, 204, 22, 0.5)' }
+                        },
+                        bounceShort: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@600;700&family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        .font-teko { font-family: 'Teko', sans-serif; }
+        .text-glow-green { text-shadow: 0 0 12px rgba(16, 185, 129, 0.6); }
+        .text-glow-orange { text-shadow: 0 0 12px rgba(249, 115, 22, 0.6); }
+    </style>
+</head>
+<body class="bg-[#070a0f] text-slate-100 font-sans antialiased selection:bg-brand-green selection:text-black min-h-screen relative overflow-x-hidden" x-data="vslApp()">
+
+    <!-- TOP URGENCY NOTIFICATION BAR -->
+    <div class="bg-gradient-to-r from-brand-green via-brand-lime to-emerald-600 text-black py-2 px-3 text-center font-black text-xs sm:text-sm uppercase tracking-wide shadow-lg flex items-center justify-center gap-1.5 sticky top-0 z-50">
+        <span class="inline-block w-2 h-2 bg-black rounded-full animate-ping"></span>
+        <span>Condição Especial de Lançamento - Encerra em:</span>
+        <span class="bg-black/80 text-brand-lime px-2 py-0.5 rounded font-mono font-black" x-text="formatTime(timer)">14:59</span>
+    </div>
+
+    <main class="max-w-4xl mx-auto px-3 sm:px-4 pt-4 sm:pt-6 pb-24">
+
+        <!-- HEADER / HEADLINE SECTION -->
+        <header class="text-center space-y-3 mb-6">
+            <div class="inline-flex items-center gap-1.5 bg-brand-green/10 border border-brand-green/40 px-3 py-1 rounded-full text-brand-lime text-[11px] sm:text-xs font-bold uppercase tracking-widest">
+                <i data-lucide="zap" class="w-3.5 h-3.5 fill-brand-lime"></i>
+                Método Revelado de Recomposição Corporal
+            </div>
+
+            <h1 class="text-2xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight text-white leading-tight">
+                Queime Gordura Feia e Localizada <br class="hidden sm:inline"/>
+                <span class="bg-gradient-to-r from-brand-lime via-brand-green to-emerald-400 bg-clip-text text-transparent text-glow-green">
+                    Mantendo Seus Músculos
+                </span>
+                Sem Dietas Malucas
+            </h1>
+
+            <p class="text-slate-300 text-xs sm:text-base max-w-2xl mx-auto font-medium leading-relaxed">
+                Descubra o segredo prático de recomposição rápida utilizado por atletas para secar a barriga, acelerar o metabolismo e evoluir o shape sem abdicar do seu fim de semana.
+            </p>
+        </header>
+
+        <!-- VSL VIDEO CONTAINER (AUTOPLAY MUTADO + CLIQUE PARA ATIVAR O SOM) -->
+        <section class="mb-8">
+            <div class="relative rounded-xl sm:rounded-2xl p-0.5 sm:p-1 bg-gradient-to-b from-brand-green/60 via-slate-800 to-brand-orange/60 shadow-[0_0_30px_rgba(16,185,129,0.2)]">
+                
+                <!-- Video Header Badge -->
+                <div class="bg-slate-950 px-3 py-1.5 rounded-t-lg sm:rounded-t-xl flex items-center justify-between border-b border-slate-800/80 text-[11px] sm:text-xs text-slate-400">
+                    <span class="flex items-center gap-1.5 text-brand-green font-bold uppercase">
+                        <span class="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
+                        Apresentação Iniciada
+                    </span>
+                    <span class="text-brand-lime font-semibold">🔊 Clique no vídeo para ativar o som</span>
+                </div>
+
+                <!-- HTML5 Video Player com Auto-play mutado de fábrica -->
+                <div class="relative w-full bg-black rounded-b-lg sm:rounded-b-xl overflow-hidden flex items-center justify-center cursor-pointer" @click="unmuteVideo()">
+                    <video 
+                        id="vslVideo"
+                        class="w-full h-auto max-h-[75vh] object-contain rounded-b-lg sm:rounded-b-xl"
+                        autoplay
+                        muted
+                        playsinline
+                        controls
+                        preload="auto">
+                        <source src="video-vsl.mp4" type="video/mp4">
+                        Seu navegador não suporta a exibição de vídeos.
+                    </video>
+                </div>
+            </div>
+
+            <!-- Soft Sub-bar -->
+            <div class="mt-2.5 flex items-center justify-between px-1 text-[11px] sm:text-xs text-slate-400">
+                <span class="flex items-center gap-1">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-green"></i> Conteúdo 100% Prático e Comprovado
+                </span>
+                <span class="text-slate-400">⏱️ Assista até os minutos finais</span>
+            </div>
+        </section>
+
+        <!-- COMPATIBILITY BADGE (KINDLE / EBOOK) -->
+        <section class="mb-8 bg-slate-900/80 border border-slate-800 rounded-xl p-3 text-center">
+            <p class="text-slate-400 text-xs mb-2 uppercase font-bold tracking-wider">Formato Digital Prático & Leitura Acessível</p>
+            <div class="flex items-center justify-center gap-4 text-xs font-semibold text-slate-300 flex-wrap">
+                <span class="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+                    <i data-lucide="book-open" class="w-4 h-4 text-brand-lime"></i> Leitura Digital PDF / ePub
+                </span>
+                <span class="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+                    <i data-lucide="tablet" class="w-4 h-4 text-brand-lime"></i> Compatível com Kindle
+                </span>
+                <span class="flex items-center gap-1.5 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+                    <i data-lucide="smartphone" class="w-4 h-4 text-brand-lime"></i> Celular & Tablet
+                </span>
+            </div>
+        </section>
+
+        <!-- MAIN CTA BUTTON (AFTER VIDEO) -->
+        <section class="text-center mb-12 space-y-3">
+            <a :href="checkoutUrl" class="group relative inline-flex items-center justify-center w-full max-w-xl py-4 sm:py-5 px-6 rounded-2xl bg-gradient-to-r from-brand-orange via-red-600 to-brand-orange text-white text-xl sm:text-3xl font-black uppercase tracking-wider shadow-[0_0_25px_rgba(249,115,22,0.6)] transform transition-all duration-200 hover:scale-105 active:scale-95 animate-pulse">
+                <span class="flex items-center gap-2 sm:gap-3">
+                    <i data-lucide="shopping-cart" class="w-6 h-6 sm:w-8 sm:h-8"></i>
+                    Quero Secar e Definir Agora!
+                </span>
+            </a>
+            <div class="flex items-center justify-center gap-3 text-[11px] sm:text-xs text-slate-400 flex-wrap">
+                <span class="flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-brand-green"></i> Acesso Imediato</span>
+                <span class="flex items-center gap-1"><i data-lucide="lock" class="w-3.5 h-3.5 text-brand-green"></i> Compra 100% Segura</span>
+                <span class="flex items-center gap-1"><i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-brand-green"></i> Garantia de 7 Dias</span>
+            </div>
+        </section>
+
+        <!-- SOCIAL PROOF / BEFORE & AFTER GRID -->
+        <section class="mb-12">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl sm:text-4xl font-extrabold uppercase text-white tracking-tight">
+                    Resultados Reais de Pessoas Comuns
+                </h2>
+                <p class="text-slate-400 text-xs sm:text-sm mt-1">Veja quem já aplicou o protocolo e transformou o corpo</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- Result Card 1 -->
+                <div class="bg-brand-card rounded-2xl p-3.5 border border-slate-800 shadow-xl flex flex-col items-center">
+                    <div class="relative w-full aspect-square rounded-xl bg-slate-800 overflow-hidden mb-3 border border-slate-700/50">
+                        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=600&q=80" alt="Resultado Fit" class="object-cover w-full h-full">
+                        <span class="absolute top-2 left-2 bg-red-600 text-white font-black text-[10px] px-2 py-0.5 rounded">-9.4 KG de Gordura</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-white text-base">Rodrigo M., 32 anos</h4>
+                        <p class="text-brand-lime text-xs font-semibold mb-1">Perdeu 9kg em 28 dias</p>
+                        <p class="text-slate-300 text-xs italic">"Sem passar fome. Continuei comendo arroz com feijão e consegui rasgar a barriga muito rápido!"</p>
+                    </div>
+                </div>
+
+                <!-- Result Card 2 -->
+                <div class="bg-brand-card rounded-2xl p-3.5 border border-slate-800 shadow-xl flex flex-col items-center">
+                    <div class="relative w-full aspect-square rounded-xl bg-slate-800 overflow-hidden mb-3 border border-slate-700/50">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=600&q=80" alt="Resultado Musculação" class="object-cover w-full h-full">
+                        <span class="absolute top-2 left-2 bg-brand-green text-black font-black text-[10px] px-2 py-0.5 rounded">+3.2 KG Massa Magra</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-white text-base">Camila S., 27 anos</h4>
+                        <p class="text-brand-lime text-xs font-semibold mb-1">Definição Muscular Express</p>
+                        <p class="text-slate-300 text-xs italic">"O treino rápido encaixou perfeitamente na minha rotina corrida. Minha cintura diminuiu 7cm."</p>
+                    </div>
+                </div>
+
+                <!-- Result Card 3 -->
+                <div class="bg-brand-card rounded-2xl p-3.5 border border-slate-800 shadow-xl flex flex-col items-center">
+                    <div class="relative w-full aspect-square rounded-xl bg-slate-800 overflow-hidden mb-3 border border-slate-700/50">
+                        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=600&q=80" alt="Resultado Recomposição" class="object-cover w-full h-full">
+                        <span class="absolute top-2 left-2 bg-red-600 text-white font-black text-[10px] px-2 py-0.5 rounded">Recomposição Total</span>
+                    </div>
+                    <div class="text-center">
+                        <h4 class="font-bold text-white text-base">Lucas F., 39 anos</h4>
+                        <p class="text-brand-lime text-xs font-semibold mb-1">Eliminou o 'Pneu' Lateral</p>
+                        <p class="text-slate-300 text-xs italic">"Achei que só daria com suplementos caros. O guia de nutrição desmistificou tudo. Excelente!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHAT YOU'LL GET / OFFER STACK (LOW TICKET VALUE) -->
+        <section class="mb-12 bg-gradient-to-b from-slate-900 to-brand-card border border-brand-green/30 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-[0_0_30px_rgba(0,0,0,0.8)]">
+            <div class="text-center mb-6">
+                <span class="text-brand-lime text-[11px] font-bold uppercase tracking-widest bg-brand-lime/10 px-3 py-1 rounded-full border border-brand-lime/30">O que você vai receber hoje</span>
+                <h2 class="text-2xl sm:text-4xl font-black uppercase text-white mt-2">
+                    O PACOTE COMPLETO DE RECOMPOSIÇÃO
+                </h2>
+                <p class="text-slate-400 text-xs sm:text-sm">Envio digital imediato direto no seu e-mail (PDF + ePub para Kindle)</p>
+            </div>
+
+            <!-- Stack Items -->
+            <div class="space-y-3 mb-6">
+                <!-- Stack Item 1 -->
+                <div class="flex items-start sm:items-center gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                    <div class="p-2.5 bg-brand-green/20 rounded-xl text-brand-lime flex-shrink-0">
+                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-white text-sm sm:text-base">Guia Definitivo: Protocolo Anabólico Seca Gordura</h3>
+                            <span class="text-slate-500 line-through text-xs">R$ 97,00</span>
+                        </div>
+                        <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">O passo a passo direto para ativar a queima contínua sem perder volume muscular.</p>
+                    </div>
+                </div>
+
+                <!-- Stack Item 2 -->
+                <div class="flex items-start sm:items-center gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                    <div class="p-2.5 bg-brand-green/20 rounded-xl text-brand-lime flex-shrink-0">
+                        <i data-lucide="dumbbell" class="w-5 h-5"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-white text-sm sm:text-base">Ficha de Treino Acelerado (Academia e Casa)</h3>
+                            <span class="text-slate-500 line-through text-xs">R$ 67,00</span>
+                        </div>
+                        <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Fichas prontas divididas por objetivo com foco na máxima hipertrofia e gasto calórico.</p>
+                    </div>
+                </div>
+
+                <!-- Stack Item 3 -->
+                <div class="flex items-start sm:items-center gap-3 p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                    <div class="p-2.5 bg-brand-green/20 rounded-xl text-brand-lime flex-shrink-0">
+                        <i data-lucide="utensils" class="w-5 h-5"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-white text-sm sm:text-base">Tabela Nutricional & Cardápios 'Ficha Limpa'</h3>
+                            <span class="text-slate-500 line-through text-xs">R$ 47,00</span>
+                        </div>
+                        <p class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Aprenda a montar pratos saborosos com alimentos acessíveis do supermercado.</p>
+                    </div>
+                </div>
+
+                <!-- Bonus Item -->
+                <div class="flex items-start sm:items-center gap-3 p-3.5 rounded-xl bg-brand-orange/10 border border-brand-orange/40">
+                    <div class="p-2.5 bg-brand-orange/20 rounded-xl text-brand-orange flex-shrink-0">
+                        <i data-lucide="gift" class="w-5 h-5"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-bold text-brand-orange text-sm sm:text-base">[BÔNUS] Manual Anti-Efeito Sanfona</h3>
+                            <span class="bg-brand-orange text-black font-black text-[10px] px-2 py-0.5 rounded">GRÁTIS</span>
+                        </div>
+                        <p class="text-[11px] sm:text-xs text-slate-300 mt-0.5">Segredos para manter seu percentual de gordura baixo o ano inteiro.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRICE BOX CONTAINER -->
+            <div class="bg-slate-950 rounded-2xl p-5 border-2 border-brand-green text-center space-y-3">
+                <p class="text-slate-400 text-xs font-semibold uppercase">Valor acumulado: <span class="line-through text-red-500">R$ 211,00</span></p>
+                
+                <div>
+                    <span class="text-slate-300 text-xs block">Por apenas</span>
+                    <div class="flex items-baseline justify-center gap-1">
+                        <span class="text-slate-300 font-bold text-base">12x de</span>
+                        <span class="text-brand-lime font-black text-4xl sm:text-6xl tracking-tight text-glow-green">R$ 2,90</span>
+                    </div>
+                    <p class="text-slate-300 text-xs sm:text-sm font-bold mt-1">ou R$ 27,90 à vista no Pix / Cartão</p>
+                </div>
+
+                <!-- CTA Button in Price Box -->
+                <a :href="checkoutUrl" class="block w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-brand-lime via-brand-green to-emerald-600 text-black text-lg sm:text-xl font-black uppercase tracking-wider shadow-[0_0_20px_rgba(132,204,22,0.6)] transform transition hover:scale-105 active:scale-95">
+                    Garantir Meu Acesso Agora
+                </a>
+
+                <p class="text-[10px] text-slate-400 flex items-center justify-center gap-1">
+                    <i data-lucide="zap" class="w-3 h-3 text-brand-lime"></i> Leitura instantânea no celular, tablet ou e-Reader Kindle
+                </p>
+            </div>
+        </section>
+
+        <!-- GUARANTEE BADGE SECTION -->
+        <section class="mb-12 bg-slate-900/60 border border-slate-800 rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+            <div class="w-20 h-20 sm:w-28 sm:h-28 flex-shrink-0 flex items-center justify-center bg-brand-green/10 rounded-full border-2 border-brand-green">
+                <i data-lucide="shield-check" class="w-10 h-10 sm:w-14 sm:h-14 text-brand-lime"></i>
+            </div>
+            <div class="space-y-1">
+                <h3 class="text-lg sm:text-xl font-bold text-white uppercase">GARANTIA INCONDICIONAL DE 7 DIAS</h3>
+                <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                    Experimente todo o método por 7 dias. Se você não notar resultados visíveis na espessura da gordura ou achar que o conteúdo não serviu para você, basta enviar um único e-mail e devolveremos 100% do seu dinheiro.
+                </p>
+            </div>
+        </section>
+
+        <!-- FAQ ACCORDION SECTION -->
+        <section class="mb-12">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl sm:text-3xl font-extrabold uppercase text-white">Perguntas Frequentes</h2>
+                <p class="text-slate-400 text-xs">Tire suas dúvidas antes de garantir sua vaga</p>
+            </div>
+
+            <div class="space-y-2.5">
+                <template x-for="(faq, index) in faqs" :key="index">
+                    <div class="bg-brand-card border border-slate-800 rounded-xl overflow-hidden">
+                        <button @click="openFaq = openFaq === index ? null : index" class="w-full py-3.5 px-4 text-left font-bold text-white flex items-center justify-between focus:outline-none text-xs sm:text-sm">
+                            <span x-text="faq.q"></span>
+                            <i data-lucide="chevron-down" class="w-4 h-4 text-brand-lime transform transition-transform duration-200" :class="{'rotate-180': openFaq === index}"></i>
+                        </button>
+                        <div x-show="openFaq === index" x-collapse class="px-4 pb-3.5 text-slate-300 text-xs border-t border-slate-800/50 pt-2.5">
+                            <p x-text="faq.a"></p>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-6 px-4 text-center text-[11px] text-slate-400 space-y-2">
+        <p>© 2026 Protocolo Fit Recomposição. Todos os direitos reservados.</p>
+        <p class="max-w-2xl mx-auto text-[10px] text-slate-400">Este site não faz parte do site do Facebook ou Facebook Inc. Além disso, este site NÃO é endossado pelo Facebook de nenhuma forma. FACEBOOK é uma marca comercial da FACEBOOK, Inc.</p>
+    </footer>
+
+    <!-- DYNAMIC LIVE PURCHASE NOTIFICATION TOAST -->
+    <div x-show="showToast" x-transition:enter="transition ease-out duration-300 transform" x-transition:enter-start="translate-y-8 opacity-0" x-transition:enter-end="translate-y-0 opacity-100" x-transition:leave="transition ease-in duration-200 transform" x-transition:leave-start="translate-y-0 opacity-100" x-transition:leave-end="translate-y-8 opacity-0" class="fixed bottom-16 sm:bottom-6 left-3 z-40 bg-slate-900/95 border border-brand-green/50 p-2.5 rounded-xl shadow-2xl flex items-center gap-2.5 max-w-[280px] backdrop-blur-md">
+        <div class="w-8 h-8 rounded-full bg-brand-green/20 flex items-center justify-center text-brand-lime font-bold text-xs flex-shrink-0">
+            <i data-lucide="check-circle" class="w-4 h-4"></i>
+        </div>
+        <div class="text-[11px] leading-tight">
+            <p class="text-white font-bold" x-text="currentToast.name"></p>
+            <p class="text-slate-400" x-text="currentToast.action"></p>
+            <p class="text-[9px] text-brand-lime font-mono mt-0.5" x-text="currentToast.time"></p>
+        </div>
+    </div>
+
+    <!-- FLOATING MOBILE STICKY CTA BUTTON -->
+    <div class="fixed bottom-0 left-0 right-0 p-2.5 bg-slate-950/95 backdrop-blur-md border-t border-slate-800 z-50 sm:hidden">
+        <a :href="checkoutUrl" class="block w-full py-3 rounded-xl bg-gradient-to-r from-brand-orange to-red-600 text-white text-center font-black uppercase text-sm tracking-wider shadow-[0_0_15px_rgba(249,115,22,0.5)]">
+            Garantir Desconto (R$ 27,90)
+        </a>
+    </div>
+
+    <!-- ALPINE LOGIC & SCRIPT INITS -->
+    <script>
+        function vslApp() {
+            return {
+                checkoutUrl: 'https://pay.kakto.com.br/SEU_CODIGO_AQUI',
+
+                // Função para desmutar o vídeo ao clicar
+                unmuteVideo() {
+                    const vid = document.getElementById('vslVideo');
+                    if (vid) {
+                        vid.muted = false;
+                        vid.play();
+                    }
+                },
+
+                timer: 900,
+                formatTime(seconds) {
+                    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+                    const s = (seconds % 60).toString().padStart(2, '0');
+                    return `${m}:${s}`;
+                },
+                startTimer() {
+                    const now = Math.floor(Date.now() / 1000);
+                    let expiry = localStorage.getItem('vsl_timer_expiry');
+
+                    if (!expiry || now >= parseInt(expiry)) {
+                        expiry = now + 900;
+                        localStorage.setItem('vsl_timer_expiry', expiry.toString());
+                    }
+
+                    setInterval(() => {
+                        const currentNow = Math.floor(Date.now() / 1000);
+                        let diff = parseInt(localStorage.getItem('vsl_timer_expiry')) - currentNow;
+
+                        if (diff <= 0) {
+                            const newExpiry = currentNow + 900;
+                            localStorage.setItem('vsl_timer_expiry', newExpiry.toString());
+                            this.timer = 900;
+                            const vid = document.getElementById('vslVideo');
+                            if (vid) { vid.pause(); vid.currentTime = 0; }
+                        } else {
+                            this.timer = diff;
+                        }
+                    }, 1000);
+                },
+
+                openFaq: null,
+                faqs: [
+                    { q: "O protocolo serve para quem nunca treinou?", a: "Sim! O guia inclui adaptações detalhadas tanto para iniciantes quanto para avançados." },
+                    { q: "Posso ler no Kindle ou celular?", a: "Perfeitamente! O material é enviado nos formatos PDF e ePub, 100% compatível com e-Readers Kindle, tablets e qualquer smartphone." },
+                    { q: "Como receberei o meu acesso?", a: "Acesso digital imediato enviado no seu e-mail logo após a confirmação do pagamento na Kakto." },
+                    { q: "É uma assinatura mensal?", a: "Não! Pagamento único de apenas R$ 27,90 para acesso vitalício aos livros digitais." }
+                ],
+
+                showToast: false,
+                currentToast: { name: '', action: '', time: '' },
+                toastPool: [
+                    { name: 'Marcos V. (São Paulo - SP)', action: 'garantiu o desconto via Pix', time: 'Há 12 segundos' },
+                    { name: 'Juliana P. (Curitiba - PR)', action: 'adquiriu o Protocolo Anabólico', time: 'Há 1 minuto' },
+                    { name: 'Gabriel T. (Belo Horizonte - MG)', action: 'entrou no grupo VIP', time: 'Há 45 segundos' },
+                    { name: 'Rafael A. (Salvador - BA)', action: 'garantiu a vaga com desconto', time: 'Há 2 minutos' },
+                    { name: 'Lucas M. (Campinas - SP)', action: 'adquiriu a Ficha de Treino', time: 'Há 30 segundos' },
+                    { name: 'Rodrigo S. (Porto Alegre - RS)', action: 'garantiu o acesso via Pix', time: 'Há 15 segundos' },
+                    { name: 'Camila F. (Rio de Janeiro - RJ)', action: 'adquiriu o Protocolo Anabólico', time: 'Há 3 minutos' },
+                    { name: 'Thiago N. (Goiânia - GO)', action: 'garantiu o desconto no Cartão', time: 'Há 1 minuto' }
+                ],
+                availableToasts: [],
+                triggerToasts() {
+                    this.availableToasts = [...this.toastPool].sort(() => Math.random() - 0.5);
+
+                    setInterval(() => {
+                        if (this.availableToasts.length === 0) {
+                            this.availableToasts = [...this.toastPool].sort(() => Math.random() - 0.5);
+                        }
+                        this.currentToast = this.availableToasts.pop();
+                        this.showToast = true;
+
+                        setTimeout(() => {
+                            this.showToast = false;
+                        }, 4000);
+                    }, 14000);
+                },
+
+                init() {
+                    this.startTimer();
+                    this.triggerToasts();
+                    setTimeout(() => { lucide.createIcons(); }, 100);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
