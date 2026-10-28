@@ -12,6 +12,13 @@ jobs:
     name: OWASP ZAP Security Scan
     runs-on: ubuntu-latest
     
+    # Adicionamos estas permissões para o robô poder interagir com o repositório sem bloqueios
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+      issues: write
+
     steps:
       - name: Baixar código do repositório
         uses: actions/checkout@v4
@@ -20,5 +27,5 @@ jobs:
         uses: zaproxy/action-baseline@v0.12.0
         with:
           target: 'https://rootsnake.github.io/LOWTICKET/'
-          fail_action: false # Garante que a pipeline não quebra por alertas informativos
+          fail_action: false
           cmd_options: '-a'
