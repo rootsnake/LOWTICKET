@@ -1,0 +1,37 @@
+name: SAST - Análise de Segurança Estática
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Roda toda segunda-feira de manhã para garantir que nada ficou obsoleto
+    - cron: '0 9 * * 1'
+
+jobs:
+  sast-scan:
+    name: Varredura de Segurança (Trivy & CodeQL)
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Executar varredura de vulnerabilidades com Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+
+      - name: Enviar resultados para o GitHub Security Dashboard
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
