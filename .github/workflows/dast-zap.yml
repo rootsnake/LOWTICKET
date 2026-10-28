@@ -12,10 +12,12 @@ jobs:
     name: OWASP ZAP Security Scan
     runs-on: ubuntu-latest
     
+    # Permissões completas para o ZAP poder interagir com o repositório sem falhas de integração
     permissions:
       security-events: write
       actions: read
       contents: read
+      issues: write
 
     steps:
       - name: Baixar código do repositório
@@ -27,5 +29,3 @@ jobs:
           target: 'https://rootsnake.github.io/LOWTICKET/'
           fail_action: false
           cmd_options: '-a'
-          # Desativa a criação automática de artefatos que está a gerar conflito de nomes
-          artifact_name: ''
