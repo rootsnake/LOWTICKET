@@ -1,0 +1,22 @@
+name: Linter - Qualidade de Código
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  html-linting:
+    name: Validar Sintaxe HTML
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Instalar HTMLHint
+        run: npm install -g htmlhint
+
+      - name: Executar Linter em arquivos HTML
+        run: htmlhint "**/*.html"
