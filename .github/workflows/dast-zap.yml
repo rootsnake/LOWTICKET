@@ -1,31 +1,39 @@
+
 name: DAST - Análise Dinâmica (OWASP ZAP)
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, develop ]
+    branches: [main, develop]
   workflow_dispatch:
+
+# Permissões mínimas para o workflow
+permissions:
+  contents: read
 
 jobs:
   zap_scan:
     name: OWASP ZAP Security Scan
     runs-on: ubuntu-latest
-    
-    # Permissões completas para o ZAP poder interagir com o repositório sem falhas de integração
+
     permissions:
-      security-events: write
-      actions: read
       contents: read
       issues: write
 
+    timeout-minutes: 15
+
     steps:
       - name: Baixar código do repositório
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Executar OWASP ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.12.0
+        uses: zaproxy/action-baseline@v0.15.0
         with:
           target: 'https://rootsnake.github.io/LOWTICKET/'
+          artifact_name: zap-baseline-results
           fail_action: false
+          allow_issue_writing: true
           cmd_options: '-a'
